@@ -1,5 +1,5 @@
 import * as React from "react";
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
@@ -29,6 +29,7 @@ import Linksection from "../constants/linksection";
 import { getLinksByLinksection } from "../actions/links";
 import CreateProduct from "../components/CreateProduct";
 import Product from "../constants/product";
+import Title from "../components/Title";
 
 function Copyright(props: any) {
   return (
@@ -40,7 +41,7 @@ function Copyright(props: any) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Knot
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -98,8 +99,6 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
 const settings = ["Dashboard", "Logout"];
 export default function Home() {
   const dispatch = useDispatch();
@@ -148,225 +147,229 @@ export default function Home() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="absolute" open={open}>
+        <Toolbar
+          sx={{
+            pr: "24px", // keep right padding when drawer closed
+          }}
+        >
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
             sx={{
-              pr: "24px", // keep right padding when drawer closed
+              marginRight: "36px",
+              ...(open && { display: "none" }),
             }}
           >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Knot
+          </Typography>
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt={user?.fullName} src={user?.image} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
               }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Knot
-            </Typography>
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt={user?.fullName}
-                    src="/static/images/avatar/2.jpg"
+              {settings.map((setting) => (
+                <MenuItem
+                  key={setting}
+                  onClick={() => handleCloseUserMenu(setting)}
+                >
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            px: [1],
+          }}
+        >
+          <IconButton onClick={toggleDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List component="nav">
+          <MainListItems
+            activeOption={activeOption}
+            setActiveOption={setActiveOption}
+          />
+          <Divider sx={{ my: 1 }} />
+          <SecondaryListItems />
+        </List>
+      </Drawer>
+      {activeOption === "Linksections" ? (
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: "100vh",
+            overflow: "auto",
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              {/* Chart */}
+              <Grid item xs={12} md={6} lg={6}>
+                <Paper
+                  sx={{
+                    p: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    borderRadius: 5,
+                    height: "333px",
+                  }}
+                  elevation={10}
+                >
+                  <Title>Create Link</Title>
+                  {activeSection && (
+                    <CreateLink sectionId={activeSection._id} />
+                  )}
+                  {!activeSection && (
+                    <Typography mt={5} textAlign="center">
+                      Please select a link section.
+                    </Typography>
+                  )}
+                </Paper>
+              </Grid>
+              {/* Recent Deposits */}
+              <Grid item xs={12} md={6} lg={6}>
+                <Paper
+                  sx={{
+                    p: 3,
+                    display: "flex",
+                    flexDirection: "column",
+                    borderRadius: 5,
+                    height: "333px",
+                    overflowY: "auto",
+                  }}
+                  elevation={10}
+                >
+                  <Linksections
+                    activeSection={activeSection}
+                    setActiveSection={setActiveSection}
                   />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem
-                    key={setting}
-                    onClick={() => handleCloseUserMenu(setting)}
-                  >
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List component="nav">
-            <MainListItems
-              activeOption={activeOption}
-              setActiveOption={setActiveOption}
-            />
-            <Divider sx={{ my: 1 }} />
-            <SecondaryListItems />
-          </List>
-        </Drawer>
-        {activeOption === "Linksections" ? (
-          <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: "100vh",
-              overflow: "auto",
-            }}
-          >
-            <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Grid container spacing={3}>
-                {/* Chart */}
-                <Grid item xs={12} md={6} lg={6}>
+                </Paper>
+              </Grid>
+              {/* Recent Orders */}
+              {activeSection && (
+                <Grid item xs={12}>
                   <Paper
                     sx={{
                       p: 2,
                       display: "flex",
                       flexDirection: "column",
-                      height: 240,
                       overflowY: "auto",
                     }}
                   >
-                    <Typography variant="h5" sx={{ textAlign: "center" }}>
-                      Create Link
-                    </Typography>
-                    {activeSection && (
-                      <CreateLink sectionId={activeSection._id} />
+                    {links.length > 0 ? (
+                      <Links activeSection={activeSection} />
+                    ) : (
+                      <Typography textAlign="center">
+                        No links in this section.
+                      </Typography>
                     )}
                   </Paper>
                 </Grid>
-                {/* Recent Deposits */}
-                <Grid item xs={12} md={6} lg={6}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      height: 240,
-                      overflowY: "auto",
-                    }}
-                  >
-                    <Linksections
-                      activeSection={activeSection}
-                      setActiveSection={setActiveSection}
-                    />
-                  </Paper>
-                </Grid>
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      overflowY: "auto",
-                    }}
-                  >
-                    <Links activeSection={activeSection} />
-                  </Paper>
-                </Grid>
+              )}
+            </Grid>
+            <Copyright sx={{ pt: 4 }} />
+          </Container>
+        </Box>
+      ) : (
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === "light"
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: "100vh",
+            overflow: "auto",
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+              {/* Recent Deposits */}
+              <Grid item xs={12}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 3,
+                    overflowY: "auto",
+                  }}
+                >
+                  <Title>Create Product</Title>
+                  <CreateProduct />
+                </Paper>
               </Grid>
-              <Copyright sx={{ pt: 4 }} />
-            </Container>
-          </Box>
-        ) : (
-          <Box
-            component="main"
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? theme.palette.grey[100]
-                  : theme.palette.grey[900],
-              flexGrow: 1,
-              height: "100vh",
-              overflow: "auto",
-            }}
-          >
-            <Toolbar />
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <Grid container spacing={3}>
-                {/* Recent Deposits */}
-                <Grid item xs={12}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 3,
-                      overflowY: "auto",
-                    }}
-                  >
-                    <Typography variant="h5" color="blue" textAlign="center">
-                      Create Product
+              {/* Recent Orders */}
+              <Grid item xs={12}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: "flex",
+                    flexDirection: "column",
+                    overflowY: "auto",
+                  }}
+                >
+                  <Title> Products </Title>
+                  {products?.map((product: Product, i: number) => (
+                    <Typography textAlign="center" margin={1} key={product._id}>
+                      {i + " ." + product.type}
                     </Typography>
-                    <CreateProduct />
-                  </Paper>
-                </Grid>
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                  <Paper
-                    sx={{
-                      p: 2,
-                      display: "flex",
-                      flexDirection: "column",
-                      overflowY: "auto",
-                    }}
-                  >
-                    {products?.map((product: Product) => (
-                      <Typography
-                        textAlign="center"
-                        color="blueviolet"
-                        key={product._id}
-                      >
-                        {product.type}
-                      </Typography>
-                    ))}
-                  </Paper>
-                </Grid>
+                  ))}
+                </Paper>
               </Grid>
-              <Copyright sx={{ pt: 4 }} />
-            </Container>
-          </Box>
-        )}
-      </Box>
-    </ThemeProvider>
+            </Grid>
+            <Copyright sx={{ pt: 4 }} />
+          </Container>
+        </Box>
+      )}
+    </Box>
   );
 }

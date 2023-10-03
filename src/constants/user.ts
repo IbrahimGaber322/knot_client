@@ -31,6 +31,8 @@ interface User {
   phones: string[];
 
   type: UserType;
+
+  image: string;
 }
 
 export default User;

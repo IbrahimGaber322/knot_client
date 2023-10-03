@@ -44,9 +44,7 @@ export default function Links({activeSection}:{activeSection:Linksection|null}) 
           ))}
         </TableBody>
       </Table>
-      <MLink color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </MLink>
+    
     </React.Fragment>
   );
 }

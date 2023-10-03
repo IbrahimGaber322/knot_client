@@ -16,7 +16,7 @@ export const signOut:Function = () => async (dispatch: Function) => {
   }
 };
 
-export const signUp = (user:User) => async (dispatch: Function) => {
+export const signUp:Function = (user:User) => async (dispatch: Function) => {
   try {
     const { data } = await api.signup(user);
 

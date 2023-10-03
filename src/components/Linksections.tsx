@@ -59,9 +59,9 @@ export default function Linksections({
       </Box>
 
       {linksections.map((section: Linksection, i: number) => (
-        <Box key={i}  sx={{bgcolor:section._id===activeSection?._id?"#00FFFF":"white"}} display="flex" py={1} justifyContent="space-between">
-          <Button onClick={()=>setActiveSection(section)}>{section.label}</Button>
-          {/*  <Typography>{section.active ? "active" : "disabled"}</Typography> */}
+        <Box onClick={()=>setActiveSection(section)} key={i}  sx={{ cursor:"pointer", border:"solid 1px black", borderRadius:3, ":hover":{bgcolor:"grey"} }} my={1} py={1} justifyContent="space-between">
+          <Typography textAlign="center">{section.label}</Typography>
+         
         </Box>
       ))}
     </React.Fragment>

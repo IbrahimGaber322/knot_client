@@ -85,8 +85,8 @@ const CreateLink = ({ sectionId }: { sectionId: string }) => {
 
   return (
     <React.Fragment>
-      <Grid p={3} container>
-        <Grid item pt={2} xs={12}>
+      <Grid spacing={2} container>
+        <Grid item  xs={12}>
           <TextField
             name="label"
             variant="outlined"
@@ -101,7 +101,7 @@ const CreateLink = ({ sectionId }: { sectionId: string }) => {
           />
         </Grid>
 
-        <Grid item pt={2} xs={12}>
+        <Grid item  xs={12}>
           <TextField
             name="url"
             variant="outlined"
@@ -116,7 +116,8 @@ const CreateLink = ({ sectionId }: { sectionId: string }) => {
           />
         </Grid>
 
-        <Grid item pt={2} xs={12} display="flex" justifyContent="center">
+        <Grid item  xs={12} display="flex" justifyContent="center" alignItems="center">
+          <Typography>Upload Image</Typography>
           <FormControlLabel
             labelPlacement="top"
             control={
@@ -140,7 +141,7 @@ const CreateLink = ({ sectionId }: { sectionId: string }) => {
           />
           <Box component="img" maxHeight="100px" src={postData.image} />
         </Grid>
-        <Grid item pt={2} xs={12}>
+        <Grid item xs={12}>
           <Button
             onClick={handleSubmit}
             variant="contained"

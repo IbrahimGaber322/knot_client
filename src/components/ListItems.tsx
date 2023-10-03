@@ -23,8 +23,8 @@ export const MainListItems = ({
     <React.Fragment>
       <ListItemButton
         sx={{
-          bgcolor: activeOption === "Linksections" ? "grey" : "white",
-          ":hover": { bgcolor: "cyan" },
+          bgcolor: activeOption === "Linksections" ? "grey" : "inherit",
+          ":hover": { bgcolor: "grey" },
         }}
         onClick={() => setActiveOption("Linksections")}
       >
@@ -35,8 +35,8 @@ export const MainListItems = ({
       </ListItemButton>
       <ListItemButton
         sx={{
-          bgcolor: activeOption === "Products" ? "grey" : "white",
-          ":hover": { bgcolor: "cyan" },
+          bgcolor: activeOption === "Products" ? "grey" : "inherit",
+          ":hover": { bgcolor: "grey" },
         }}
         onClick={() => setActiveOption("Products")}
       >
@@ -56,7 +56,7 @@ export const SecondaryListItems = () => {
   };
   return (
     <React.Fragment>
-      <ListItemButton sx={{":hover": { bgcolor: "cyan" }}} onClick={handleLogout}>
+      <ListItemButton sx={{":hover": { bgcolor: "grey" }}} onClick={handleLogout}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
