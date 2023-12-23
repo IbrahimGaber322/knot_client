@@ -1,6 +1,6 @@
 # Project Name
 
-Link Manager
+KNOT (Link Manager)
 
 ## Description
 
