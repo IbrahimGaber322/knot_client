@@ -1,46 +1,89 @@
-# Getting Started with Create React App
+# Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Link Manager
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+The Link Manager project is a web application that allows users to create link sections and add links to those sections. It provides CRUD (Create, Read, Update, Delete) functionality for managing links and link sections. The project is built using NestJS and React with TypeScript. It also includes complete authorization using Passport.js for secure user authentication. Material UI is used for styling the user interface.
 
-### `npm start`
+In addition to managing links, the application also provides the option to add products to users. The product type includes card, keychain, and sticker. Products are associated with users and can be managed through the application.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Create, read, update, and delete links
+- Create, read, update, and delete link sections
+- Secure user authentication with complete authorization
+- Styling using Material UI
+- Add and manage products for users
 
-### `npm test`
+## Technologies Used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- NestJS
+- React
+- TypeScript
+- Passport.js
+- Material UI
 
-### `npm run build`
+## Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository from GitHub.
+2. Install the required dependencies using the package manager of your choice.
+3. Set up the database connection and configuration.
+4. Build and start the backend server.
+5. Build and start the frontend client.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Configuration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Configure the database connection settings in the backend server.
+2. Set up authentication and authorization configurations in the backend server.
+3. Customize the styling and theme options in the frontend client.
 
-### `npm run eject`
+## Usage
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Access the application through the provided URL or host it locally.
+2. Sign up or log in to the application using your credentials.
+3. Create link sections and add links to them.
+4. Manage links and link sections using the provided CRUD functionality.
+5. Optionally, add products to users and manage them through the application.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## API Reference
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The application provides a RESTful API for managing links, link sections, users, and products. The API endpoints can be accessed using HTTP requests.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Link Endpoints
 
-## Learn More
+- `GET /api/links` - Get all links
+- `GET /api/links/:id` - Get a specific link
+- `POST /api/links` - Create a new link
+- `PUT /api/links/:id` - Update an existing link
+- `DELETE /api/links/:id` - Delete a link
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Link Section Endpoints
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- `GET /api/linksections` - Get all link sections
+- `GET /api/linksections/:id` - Get a specific link section
+- `POST /api/linksections` - Create a new link section
+- `PUT /api/linksections/:id` - Update an existing link section
+- `DELETE /api/linksections/:id` - Delete a link section
+
+### User Endpoints
+
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get a specific user
+- `POST /api/users` - Create a new user
+- `PUT /api/users/:id` - Update an existing user
+- `DELETE /api/users/:id` - Delete a user
+
+### Product Endpoints
+
+- `GET /api/products` - Get all products
+- `GET /api/products/:id` - Get a specific product
+- `POST /api/products` - Create a new product
+- `PUT /api/products/:id` - Update an existing product
+- `DELETE /api/products/:id` - Delete a product
+
+Please refer to the API documentation for detailed information on request payloads and responses.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
